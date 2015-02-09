@@ -54,7 +54,7 @@ class ParserKpiGroups {
     private $_targetGroupUrl = "http://rozklad.kpi.ua/Schedules/ScheduleGroupSelection.aspx";
     private $_targetUrl = "http://rozklad.kpi.ua/Schedules/ScheduleGroupSelection.aspx/GetGroups";
 
-    private $_gruopUrlPosKey;
+    private $_groupUrlPosKey;
 
     /** @var  PDO $_db */
     private $_db;
@@ -159,11 +159,11 @@ class ParserKpiGroups {
         $content = curl_exec($ch);
         preg_match('|<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="(.*?)" />|',$content,$out);
         $key = urlencode(trim($out[1]));
-        $this->_gruopUrlPosKey = $key;
+        $this->_groupUrlPosKey = $key;
     }
 
     private function getResponse($group_full_name) {
-        $gruopUrlPostData = "__EVENTTARGET=&__EVENTARGUMENT=&ctl00%24MainContent%24ctl00%24txtboxGroup=$group_full_name&ctl00%24MainContent%24ctl00%24btnShowSchedule=%D0%A0%D0%BE%D0%B7%D0%BA%D0%BB%D0%B0%D0%B4+%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D1%8C&__EVENTVALIDATION=".$this->_gruopUrlPosKey;
+        $gruopUrlPostData = "__EVENTTARGET=&__EVENTARGUMENT=&ctl00%24MainContent%24ctl00%24txtboxGroup=$group_full_name&ctl00%24MainContent%24ctl00%24btnShowSchedule=%D0%A0%D0%BE%D0%B7%D0%BA%D0%BB%D0%B0%D0%B4+%D0%B7%D0%B0%D0%BD%D1%8F%D1%82%D1%8C&__EVENTVALIDATION=".$this->_groupUrlPosKey;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$this->_targetGroupUrl);
         curl_setopt($ch, CURLOPT_POST, 1);
